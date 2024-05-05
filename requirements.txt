@@ -1,0 +1,4 @@
+esper==3.2
+pygame-ce==2.4.1
+pygbag==0.9.1
+pyinstaller==6.6.0
