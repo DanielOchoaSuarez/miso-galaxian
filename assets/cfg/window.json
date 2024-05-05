@@ -1,13 +1,13 @@
 {
-    "title": "MISO - Entrega final",
-    "size": {
-        "w": 640,
-        "h": 640
-    },
-    "bg_color": {
-        "r": 25,
-        "g": 25,
-        "b": 25
-    },
-    "framerate": 60
+  "title": "MISO - Invaders!",
+  "size": {
+    "w": 640,
+    "h": 640
+  },
+  "bg_color": {
+    "r": 25,
+    "g": 25,
+    "b": 25
+  },
+  "framerate": 60
 }

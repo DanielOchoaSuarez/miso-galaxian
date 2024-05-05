@@ -2,7 +2,7 @@ import esper
 import random
 from src.ecs.components.c_stars_spawner import CStarsSpawner, StarData
 from src.ecs.components.c_surface import CSurface
-from src.ecs.create.background_creator import create_star
+from src.create.background_creator import create_star
 
 def system_stars_spawner(world:esper.World, delta_time, screen_height):
     component = world.get_component(CStarsSpawner)
