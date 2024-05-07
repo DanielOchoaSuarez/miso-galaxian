@@ -18,6 +18,6 @@ def create_star(
     world.add_component(cuad_entity, CVelocity(vel=vel))
     return cuad_entity
 
-def create_stars_spawner(world:esper.World, screen:pygame.Surface):
+def create_stars_spawner(world:esper.World, screen:pygame.Surface, starfield_cfg:dict):
     stars_spawner = world.create_entity()
-    world.add_component(stars_spawner, CStarsSpawner(screen))
+    world.add_component(stars_spawner, CStarsSpawner(screen, starfield_cfg))

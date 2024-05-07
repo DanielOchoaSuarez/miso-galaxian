@@ -2,12 +2,12 @@
     "title": "MISO - Entrega final",
     "size": {
         "w": 640,
-        "h": 640
+        "h": 320
     },
     "bg_color": {
-        "r": 25,
-        "g": 25,
-        "b": 25
+        "r": 0,
+        "g": 0,
+        "b": 0
     },
     "framerate": 60
 }
