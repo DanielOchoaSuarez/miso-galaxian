@@ -1,8 +1,8 @@
 {
   "title": "MISO - Invaders!",
   "size": {
-    "w": 640,
-    "h": 640
+    "w": 256,
+    "h": 240
   },
   "bg_color": {
     "r": 25,
