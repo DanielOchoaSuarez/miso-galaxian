@@ -3,8 +3,10 @@ import esper
 import asyncio
 from src.ecs.components.c_input_command import CInputCommand, CommandPhase
 from src.ecs.components.c_velocity import CVelocity
+from src.ecs.components.tags.c_tag_bullet import CTagBullet
 from src.ecs.create.background_creator import create_stars_spawner
-from src.ecs.create.enemy_player_creator import create_input_player, create_player
+from src.ecs.create.enemy_player_creator import create_input_player, create_player, create_player_bullet
+from src.ecs.systems.s_bullet_limits import system_bullet_limits
 from src.ecs.systems.s_input_player import system_input_player
 from src.ecs.systems.s_movement import system_movement
 from src.ecs.systems.s_player_limits import system_player_limits
@@ -20,7 +22,7 @@ class GameEngine:
         pygame.init()
         pygame.font.init()
         pygame.display.set_caption(title)
-        self.screen = pygame.display.set_mode((size['w'], size['h']), 0)
+        self.screen = pygame.display.set_mode((size['w'], size['h']), pygame.SCALED)
         self.clock = pygame.time.Clock()
         self.delta_time = 0
         self.ecs_world = esper.World()
@@ -57,7 +59,9 @@ class GameEngine:
     def _update(self):
         system_stars_spawner(self.ecs_world, self.delta_time, self.screen.get_height())
         system_player_limits(self.ecs_world, self.screen)
+        system_bullet_limits(self.ecs_world, self.screen, self.player_entity)
         system_movement(self.ecs_world, self.delta_time)
+        self.ecs_world._clear_dead_entities()
 
     def _draw(self):
         self.screen.fill((self.bg_color['r'], self.bg_color['g'], self.bg_color['b']))
@@ -83,6 +87,10 @@ class GameEngine:
                 self._player_cv.vel.x -= velocity
         if c_input.name == "PLAYER_FIRE":
             if c_input.phase == CommandPhase.START:
-                pass
+                bullet_entity = self.ecs_world.get_components(CTagBullet)
+                if len(bullet_entity) == 0:
+                    bullet_entity = create_player_bullet(self.ecs_world, self.player_entity)
+                    bullet_entity_c_v = self.ecs_world.component_for_entity(bullet_entity, CVelocity)
+                    bullet_entity_c_v.vel.y -= 150
             elif c_input.phase == CommandPhase.END:
                 pass
