@@ -23,6 +23,6 @@ def create_star(
     return cuad_entity
 
 
-def create_stars_spawner(world: esper.World, screen: pygame.Surface, starfield_cfg: dict):
+def create_stars_spawner(world: esper.World, screen_rect: pygame.Rect, starfield_cfg: dict):
     stars_spawner = world.create_entity()
-    world.add_component(stars_spawner, CStarsSpawner(screen, starfield_cfg))
+    world.add_component(stars_spawner, CStarsSpawner(screen_rect, starfield_cfg))

@@ -3,18 +3,17 @@ import random
 
 
 class CStarsSpawner:
-    def __init__(self, screen: pygame.Surface, starfield_cfg: dict) -> None:
+    def __init__(self, screen_rect: pygame.Rect, starfield_cfg: dict) -> None:
         self.num_starts: int = starfield_cfg['number_of_stars']
-        self.max_vel: int = 80
         self.start_data: list = []
-        self.screen_width: int = screen.get_width()
+        self.screen_width: int = screen_rect.width
         for _ in range(0, self.num_starts):
             self.start_data.append(
-                StarData(self.screen_width, self.max_vel, starfield_cfg))
+                StarData(self.screen_width, starfield_cfg))
 
 
 class StarData:
-    def __init__(self, screen_width: int, max_vel: int, cfg: dict) -> None:
+    def __init__(self, screen_width: int, cfg: dict) -> None:
         self.spawned: bool = False
         self.spawn_counter: int = 0
         self.blink_counter: float = 0.0
@@ -46,7 +45,6 @@ class StarData:
 
     @staticmethod
     def get_random_blink(min, max) -> int:
-        # return random.choice([min, max])
         return random.uniform(min, max)
 
     @staticmethod
