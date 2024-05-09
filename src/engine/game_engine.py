@@ -6,6 +6,7 @@ from src.ecs.components.c_input_command import CInputCommand
 from src.engine.cfg_loader import *
 from src.engine.scenes.scene import Scene
 from src.game.menu_scene import MenuScene
+from src.game.play_scene import PlayScene
 
 
 class GameEngine:
@@ -16,13 +17,15 @@ class GameEngine:
         pygame.font.init()
         pygame.display.set_caption(title)
 
-        self.screen = pygame.display.set_mode((size['w'], size['h']), 0)
+        self.screen = pygame.display.set_mode(
+            (size['w'], size['h']), pygame.SCALED)
         self.clock = pygame.time.Clock()
         self._delta_time = 0
 
         self.is_running = False
         self._scenes: dict[str, Scene] = {}
         self._scenes['MENU_SCENE'] = MenuScene(self)
+        self._scenes["LEVEL_01"] = PlayScene("level_01.json", self)
         self._current_scene: Scene = None
         self._scene_name_to_switch: str = None
 
