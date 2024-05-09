@@ -1,57 +1,84 @@
-import pygame
-import esper
 import asyncio
-from src.ecs.create.background_creator import create_stars_spawner
-from src.ecs.systems.s_movement import system_movement
-from src.ecs.systems.s_rendering import system_rendering
-from src.ecs.systems.s_stars_spawner import system_stars_spawner
+import pygame
+
+
+from src.ecs.components.c_input_command import CInputCommand
 from src.engine.cfg_loader import *
+from src.engine.scenes.scene import Scene
+from src.game.menu_scene import MenuScene
+from src.game.play_scene import PlayScene
+
 
 class GameEngine:
     def __init__(self) -> None:
-        title, size, self.framerate, self.bg_color = window_cfg()
+        title, size, self._framerate, self.bg_color = window_cfg()
+
         pygame.init()
         pygame.font.init()
         pygame.display.set_caption(title)
-        self.screen = pygame.display.set_mode((size['w'], size['h']), 0)
-        self.clock = pygame.time.Clock()
-        self.delta_time = 0
-        self.ecs_world = esper.World()
-        self.is_running = False
 
-    async def run(self) -> None:
-        self._create()
+        self.screen = pygame.display.set_mode(
+            (size['w'], size['h']), pygame.SCALED)
+        self.clock = pygame.time.Clock()
+        self._delta_time = 0
+
+        self.is_running = False
+        self._scenes: dict[str, Scene] = {}
+        self._scenes['MENU_SCENE'] = MenuScene(self)
+        self._scenes["LEVEL_01"] = PlayScene("level_01.json", self)
+        self._current_scene: Scene = None
+        self._scene_name_to_switch: str = None
+
+    async def run(self, start_scene_name: str) -> None:
         self.is_running = True
+        self._current_scene = self._scenes[start_scene_name]
+        self._create()
+
         while self.is_running:
             self._calculate_time()
             self._process_events()
             self._update()
             self._draw()
+            self._handle_switch_scene()
             await asyncio.sleep(0)
-        self._clean()
+        self._do_clean()
 
     def _create(self):
-        create_stars_spawner(self.ecs_world, self.screen)
-        pass
+        self._current_scene.do_create()
 
     def _calculate_time(self):
-        self.clock.tick(self.framerate)
-        self.delta_time = self.clock.get_time() / 1000.0
+        self.clock.tick(self._framerate)
+        self._delta_time = self.clock.get_time() / 1000.0
 
     def _process_events(self):
         for event in pygame.event.get():
+            self._current_scene.do_process_events(event)
             if event.type == pygame.QUIT:
                 self.is_running = False
 
     def _update(self):
-        system_stars_spawner(self.ecs_world, self.delta_time, self.screen.get_height())
-        system_movement(self.ecs_world, self.delta_time)
+        self._current_scene.simulate(self._delta_time)
 
     def _draw(self):
-        self.screen.fill((self.bg_color['r'], self.bg_color['g'], self.bg_color['b']))
-        system_rendering(self.ecs_world, self.screen)
+        self.screen.fill(
+            (self.bg_color['r'], self.bg_color['g'], self.bg_color['b']))
+        self._current_scene.do_draw(self.screen)
         pygame.display.flip()
 
-    def _clean(self):
-        self.ecs_world.clear_database()
+    def _do_action(self, action: CInputCommand):
+        self._current_scene.do_action(action)
+
+    def _do_clean(self):
+        if self._current_scene is not None:
+            self._current_scene.clean()
         pygame.quit()
+
+    def switch_scene(self, new_scene_name: str):
+        self._scene_name_to_switch = new_scene_name
+
+    def _handle_switch_scene(self):
+        if self._scene_name_to_switch is not None:
+            self._current_scene.clean()
+            self._current_scene = self._scenes[self._scene_name_to_switch]
+            self._current_scene.do_create()
+            self._scene_name_to_switch = None
