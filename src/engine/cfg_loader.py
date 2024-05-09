@@ -12,3 +12,15 @@ def window_cfg() -> any:
 def interface_cfg() -> any:
     with open(f"{ASSET_PATH}/interface.json") as interface_file:
         return json.load(interface_file)
+
+
+def starfield_cfg() -> any:
+    file = open(f"{ASSET_PATH}/starfield.json")
+    starfield = json.load(file)
+    return starfield
+
+
+def player_cfg() -> any:
+    file = open(f"{ASSET_PATH}/player.json")
+    player = json.load(file)
+    return player
