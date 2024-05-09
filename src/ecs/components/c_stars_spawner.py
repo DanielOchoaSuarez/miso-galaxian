@@ -7,19 +7,21 @@ class CStarsSpawner:
         self.num_starts: int = starfield_cfg['number_of_stars']
         self.start_data: list = []
         self.screen_width: int = screen_rect.width
+        self.screen_height: int = screen_rect.height
         for _ in range(0, self.num_starts):
             self.start_data.append(
-                StarData(self.screen_width, starfield_cfg))
+                StarData(self.screen_width, self.screen_height, starfield_cfg))
 
 
 class StarData:
-    def __init__(self, screen_width: int, cfg: dict) -> None:
+    def __init__(self, screen_width: int, screen_height, cfg: dict) -> None:
         self.spawned: bool = False
         self.spawn_counter: int = 0
         self.blink_counter: float = 0.0
         self.spawn_at: int = random.randint(0, 15)
         self.entity_id: int = 0
-        x_pos, y_pos = StarData.get_random_pos(screen_width)
+        x_pos = StarData.get_random_pos(screen_width)
+        y_pos = StarData.get_random_pos(screen_height)
         x_vel, y_vel = StarData.get_random_vel(
             cfg['vertical_speed']['min'], cfg['vertical_speed']['max'])
         r, g, b = StarData.get_random_col(cfg['star_colors'])
@@ -32,10 +34,9 @@ class StarData:
             cfg['blink_rate']['min'], cfg['blink_rate']['max'])
 
     @staticmethod
-    def get_random_pos(screen_width) -> int:
-        x_pos = random.randint(5, screen_width - 5)
-        y_pos = 0
-        return x_pos, y_pos
+    def get_random_pos(screen_pos) -> int:
+        x_pos = random.randint(5, screen_pos - 5)
+        return x_pos
 
     @staticmethod
     def get_random_vel(min, max) -> int:
@@ -55,5 +56,4 @@ class StarData:
 
     @staticmethod
     def get_random_size() -> int:
-        w = random.randint(2, 2)
-        return w
+        return random.randint(2, 2)

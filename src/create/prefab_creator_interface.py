@@ -2,19 +2,9 @@ import pygame
 import esper
 
 
-from src.ecs.components.c_surface import CSurface
-from src.ecs.components.c_transform import CTransform
-from src.ecs.components.c_velocity import CVelocity
+from src.create.prefab_creator import create_sprite
 from src.ecs.components.tags.c_tag_logo_title import CTagLogoTitle
 from src.engine.service_locator import ServiceLocator
-
-
-def create_sprite(world: esper.World, pos: pygame.Vector2, vel: pygame.Vector2, surface: pygame.Surface) -> int:
-    sprite_entity = world.create_entity()
-    world.add_component(sprite_entity, CTransform(pos=pos))
-    world.add_component(sprite_entity, CVelocity(vel=vel))
-    world.add_component(sprite_entity, CSurface.from_surface(surface))
-    return sprite_entity
 
 
 def create_logo_title(world: esper.World, logo_info: dict) -> int:

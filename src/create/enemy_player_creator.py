@@ -1,36 +1,13 @@
 import esper
 import pygame
 
+from src.create.prefab_creator import create_sprite, create_square
 from src.ecs.components.c_input_command import CInputCommand
 from src.ecs.components.c_surface import CSurface
 from src.ecs.components.c_transform import CTransform
-from src.ecs.components.c_velocity import CVelocity
 from src.ecs.components.tags.c_tag_bullet import CTagBullet
 from src.ecs.components.tags.c_tag_player import CTagPlayer
 from src.engine.services.service_locator import ServiceLocator
-
-
-def crear_cuadrado(ecs_world: esper.World,
-                   size: pygame.Vector2,
-                   pos: pygame.Vector2,
-                   vel: pygame.Vector2,
-                   col: pygame.color) -> int:
-    cuad_entity = ecs_world.create_entity()
-    ecs_world.add_component(cuad_entity, CSurface(size=size, color=col))
-    ecs_world.add_component(cuad_entity, CTransform(pos=pos))
-    ecs_world.add_component(cuad_entity, CVelocity(vel=vel))
-    return cuad_entity
-
-
-def create_sprite(world: esper.World,
-                  pos: pygame.Vector2,
-                  vel: pygame.Vector2,
-                  surface: pygame.Surface) -> int:
-    sprite_entity = world.create_entity()
-    world.add_component(sprite_entity, CTransform(pos=pos))
-    world.add_component(sprite_entity, CVelocity(vel=vel))
-    world.add_component(sprite_entity, CSurface.from_surface(surface=surface))
-    return sprite_entity
 
 
 def create_player(world: esper.World, screen_rect: pygame.Rect, player_cfg: dict):
@@ -52,7 +29,7 @@ def create_player_bullet(world: esper.World, player_entity: int) -> int:
     b_color = pygame.Color(255, 255, 255)
     b_pos = pygame.Vector2(player.center[0], p_t.pos.y)
     b_vel = pygame.Vector2(0, 0)
-    bullet_entity = crear_cuadrado(world, b_size, b_pos, b_vel, b_color)
+    bullet_entity = create_square(world, b_size, b_color, b_pos, b_vel)
     world.add_component(bullet_entity, CTagBullet())
     return bullet_entity
 

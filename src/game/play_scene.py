@@ -1,4 +1,3 @@
-import json
 import src
 
 from src.create.background_creator import create_stars_spawner
