@@ -12,9 +12,12 @@ class Scene:
         self.ecs_world = esper.World()
         self._game_engine: src.engine.game_engine.GameEngine = game_engine
         self.screen_rect: pygame.Rect = self._game_engine.screen.get_rect()
+        self.is_paused: bool = False
 
     def do_process_events(self, event: pygame.event):
         system_input(self.ecs_world, event, self.do_action)
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+                self.is_paused = not self.is_paused
 
     def simulate(self, delta_time):
         self.do_update(delta_time)

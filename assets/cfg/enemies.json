@@ -1,0 +1,150 @@
+{
+    "typeA": {
+        "image": "assets/img/invaders_enemy_02.png",
+        "animations": {
+            "normal": {
+                "number_frames": 5,
+                "list": [
+                    {
+                        "name": "MOVE",
+                        "start": 1,
+                        "end": 4,
+                        "framerate": 5
+                    },
+                    {
+                        "name": "IDLE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
+                    }
+                ]
+            },
+            "reversed": {
+                "number_frames": 5,
+                "list": [
+                    {
+                        "name": "MOVE",
+                        "start": 4,
+                        "end": 1,
+                        "framerate": 5
+                    },
+                    {
+                        "name": "IDLE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
+                    }
+                ]
+            }
+        },
+        "velocity_chase": 75
+    },
+    "typeB": {
+        "image": "assets/img/invaders_enemy_01.png",
+        "animations": {
+            "normal": {
+                "number_frames": 5,
+                "list": [
+                    {
+                        "name": "MOVE",
+                        "start": 1,
+                        "end": 4,
+                        "framerate": 5
+                    },
+                    {
+                        "name": "IDLE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
+                    }
+                ]
+            },
+            "reversed": {
+                "number_frames": 5,
+                "list": [
+                    {
+                        "name": "MOVE",
+                        "start": 4,
+                        "end": 1,
+                        "framerate": 5                    
+                    },
+                    {
+                        "name": "IDLE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
+                    }
+                ]
+            }
+        },
+        "velocity_chase": 75
+    },
+    "typeC": {
+        "image": "assets/img/invaders_enemy_03.png",
+        "animations": {
+            "normal": {
+                "number_frames": 5,
+                "list": [
+                    {
+                        "name": "MOVE",
+                        "start": 1,
+                        "end": 4,
+                        "framerate": 5                    
+                    },
+                    {
+                        "name": "IDLE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
+                    }
+                ]
+            },
+            "reversed": {
+                "number_frames": 5,
+                "list": [
+                    {
+                        "name": "MOVE",
+                        "start": 4,
+                        "end": 1,
+                        "framerate": 5                    
+                    },
+                    {
+                        "name": "IDLE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
+                    }
+                ]
+            }
+        },
+        "velocity_chase": 5
+    },
+    "typeD": {
+        "image": "assets/img/invaders_enemy_04.png",
+        "animations": {
+            "normal": {
+                "number_frames": 1,
+                "list": [
+                    {
+                        "name": "IDLE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
+                    }
+                ]
+            },
+            "reversed": {
+                "number_frames": 1,
+                "list": [
+                    {
+                        "name": "IDLE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
+                    }
+                ]
+            }
+        },
+        "velocity_chase": 75
+    }
+}

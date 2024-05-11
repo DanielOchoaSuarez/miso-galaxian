@@ -1,5 +1,4 @@
 import esper
-import random
 from src.ecs.components.c_stars_spawner import CStarsSpawner, StarData
 from src.ecs.components.c_surface import CSurface
 from src.create.background_creator import create_star

@@ -2,19 +2,24 @@ import esper
 import pygame
 
 from src.create.prefab_creator import create_sprite, create_square
+from src.ecs.components.c_animation import CAnimation
+from src.ecs.components.c_enemy_spawner import CEnemySpawner
+from src.ecs.components.c_explostion_state import CExplosionState
 from src.ecs.components.c_input_command import CInputCommand
 from src.ecs.components.c_surface import CSurface
 from src.ecs.components.c_transform import CTransform
 from src.ecs.components.tags.c_tag_bullet import CTagBullet
+from src.ecs.components.tags.c_tag_enemy import CTagEnemy
+from src.ecs.components.tags.c_tag_explosion import CTagExplosion
 from src.ecs.components.tags.c_tag_player import CTagPlayer
-from src.engine.services.service_locator import ServiceLocator
+from src.engine.service_locator import ServiceLocator
 
 
 def create_player(world: esper.World, screen_rect: pygame.Rect, player_cfg: dict):
     player = ServiceLocator.images_service.get(player_cfg['image'])
     size = player.get_size()
     pos = pygame.Vector2(screen_rect.width / 2 -
-                         (size[0]/2), screen_rect.height - 35)
+                         (size[0]/2), screen_rect.height - 25)
     vel = pygame.Vector2(0, 0)
     player_entity = create_sprite(world, pos, vel, player)
     world.add_component(player_entity, CTagPlayer())
@@ -33,6 +38,22 @@ def create_player_bullet(world: esper.World, player_entity: int) -> int:
     world.add_component(bullet_entity, CTagBullet())
     return bullet_entity
 
+def create_enemies(world:esper.World, pos:pygame.Vector2, on_idle_vel:pygame.Vector2, enemy:dict, reversed:str, reversed_flag:bool) -> int:
+    enemy_surface = ServiceLocator.images_service.get(enemy['image'])
+    enemy_sprite = create_sprite(world, pos, on_idle_vel, enemy_surface)
+    world.add_component(enemy_sprite, CTagEnemy(pos=pos.copy()))
+    world.add_component(enemy_sprite, CAnimation(enemy['animations'][reversed], reversed_flag))
+    return enemy_sprite
+
+def create_enemy_explosion(world:esper.World, pos:pygame.Vector2, explosion_cfg):
+    explosion_surf = ServiceLocator.images_service.get(explosion_cfg['image'])
+    ServiceLocator.sounds_service.play(explosion_cfg['sound'])
+    vel = pygame.Vector2(0, 0)
+    explosion_entity = create_sprite(world, pos, vel, explosion_surf)
+    world.add_component(explosion_entity, CTagExplosion())
+    world.add_component(explosion_entity, CAnimation(explosion_cfg['animations'], False))
+    world.add_component(explosion_entity, CExplosionState())
+    
 
 def create_input_player(world: esper.World):
     # Izquierda
@@ -49,3 +70,7 @@ def create_input_player(world: esper.World):
     input_fire = world.create_entity()
     world.add_component(input_fire, CInputCommand(
         'PLAYER_FIRE', pygame.K_SPACE))
+
+def create_enemy_spawner(world:esper.World, screen:pygame.Rect):
+    enemy_spawner = world.create_entity()
+    world.add_component(enemy_spawner, CEnemySpawner(screen))

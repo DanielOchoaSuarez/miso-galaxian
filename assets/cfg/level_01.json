@@ -1,3 +1,4 @@
 {
-  "prueba": "Nivel 1"
+  "prueba": "Nivel 1",
+  "player_bullet_speed": 200
 }

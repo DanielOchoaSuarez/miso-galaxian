@@ -28,7 +28,7 @@ class MenuScene(Scene):
     def do_update(self, delta_time: float):
         system_stars_spawner(self.ecs_world, delta_time,
                              self.screen_rect.height)
-        system_movement(self.ecs_world, delta_time)
+        system_movement(self.ecs_world, delta_time, False)
         system_logo_title(self.ecs_world)
 
     def do_action(self, action: CInputCommand):
