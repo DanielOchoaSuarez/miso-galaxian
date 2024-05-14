@@ -14,20 +14,71 @@
     "g": 144,
     "b": 255
   },
+  "scroll_velocity": {
+    "x": 0,
+    "y": -60
+  },
   "high_score_max_value": 1000,
   "logo_title": {
     "image": "assets/img/invaders_logo_title.png",
     "position": {
       "x": 128,
-      "y": 240
-    },
-    "vel": {
-      "x": 0,
-      "y": -80
-    },
-    "final_position": {
+      "y": 96
+    }
+  },
+  "press_start_text": {
+    "font": "assets/fnt/PressStart2P.ttf",
+    "text": "PRESS Z TO START",
+    "size": 8,
+    "color": "title_text_color",
+    "blink": true,
+    "position": {
       "x": 128,
-      "y": 90
+      "y": 164
+    }
+  },
+  "label_player_text": {
+    "font": "assets/fnt/PressStart2P.ttf",
+    "text": "1UP",
+    "size": 8,
+    "color": "title_text_color",
+    "blink": false,
+    "position": {
+      "x": 38,
+      "y": 20
+    }
+  },
+  "player_score_text": {
+    "font": "assets/fnt/PressStart2P.ttf",
+    "text": "00",
+    "size": 8,
+    "color": "normal_text_color",
+    "blink": false,
+    "position": {
+      "x": 66,
+      "y": 32
+    }
+  },
+  "label_high_score_text": {
+    "font": "assets/fnt/PressStart2P.ttf",
+    "text": "HI-SCORE",
+    "size": 8,
+    "color": "title_text_color",
+    "blink": false,
+    "position": {
+      "x": 122,
+      "y": 20
+    }
+  },
+  "high_score_text": {
+    "font": "assets/fnt/PressStart2P.ttf",
+    "text": "5000",
+    "size": 8,
+    "color": "high_score_color",
+    "blink": false,
+    "position": {
+      "x": 148,
+      "y": 32
     }
   }
 }
