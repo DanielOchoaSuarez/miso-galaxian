@@ -56,4 +56,4 @@ class StarData:
 
     @staticmethod
     def get_random_size() -> int:
-        return random.randint(2, 2)
+        return random.randint(1, 1)
