@@ -59,7 +59,12 @@ def create_enemies(world:esper.World, pos:pygame.Vector2, on_idle_vel:pygame.Vec
     enemy_surface = ServiceLocator.images_service.get(enemy['image'])
     enemy_sprite = create_sprite(world, pos, on_idle_vel, enemy_surface)
     world.add_component(enemy_sprite, CTagEnemy())
-    world.add_component(enemy_sprite, CEnemyState(pos=pos.copy(), vel=on_idle_vel.copy(), chase=pygame.Vector2(enemy['velocity_chase'], enemy['velocity_chase'])))
+    world.add_component(enemy_sprite, 
+                        CEnemyState(pos=pos.copy(), 
+                                    vel=on_idle_vel.copy(), 
+                                    chase=pygame.Vector2(enemy['velocity_chase'], enemy['velocity_chase']), 
+                                    score=enemy['score'],
+                                    chasing_score=enemy['chasing_score']))
     world.add_component(enemy_sprite, CAnimation(enemy['animations'][reversed], reversed_flag))
     return enemy_sprite
 

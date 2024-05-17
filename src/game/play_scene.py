@@ -2,7 +2,7 @@ import src
 
 from src.create.background_creator import create_stars_spawner
 from src.create.enemy_player_creator import create_enemy_spawner, create_game, create_input_player, create_player, create_player_bullet
-from src.create.prefab_creator_interface import TextAlignment, create_paused_text
+from src.create.prefab_creator_interface import TextAlignment, TypeText, create_game_text
 from src.ecs.components.c_input_command import CInputCommand, CommandPhase
 from src.ecs.components.c_velocity import CVelocity
 from src.ecs.components.tags.c_tag_bullet import CTagBullet
@@ -45,17 +45,31 @@ class PlayScene(Scene):
 
     def do_create(self):
         create_game(self.ecs_world)
-        create_paused_text(self.ecs_world, self.interface_cfg, TextAlignment.CENTER)
         create_stars_spawner(self.ecs_world, self.screen_rect, self.starfield_cfg)
         self.spawn_player()
         create_input_player(self.ecs_world)
         create_enemy_spawner(self.ecs_world, self.screen_rect)
 
+        # Paused text
+        create_game_text(self.ecs_world, self.interface_cfg, 'paused_text', TextAlignment.CENTER, TypeText.NA, 0)
+
+        # Player score
+        create_game_text(
+            self.ecs_world, self.interface_cfg, 'label_player_text', TextAlignment.CENTER, TypeText.NA)
+        create_game_text(
+            self.ecs_world, self.interface_cfg, 'player_score_text', TextAlignment.RIGHT, TypeText.SCORE)
+
+        # High Score
+        create_game_text(
+            self.ecs_world, self.interface_cfg, 'label_high_score_text', TextAlignment.CENTER, TypeText.NA)
+        create_game_text(
+            self.ecs_world, self.interface_cfg, 'high_score_text', TextAlignment.RIGHT, TypeText.HIGH_SCORE)
+
     def do_update(self, delta_time: float):
         system_stars_spawner(self.ecs_world, delta_time,
                             self.screen_rect.height)
         system_movement(self.ecs_world, delta_time, self.is_paused)
-        system_paused_game(self.ecs_world, delta_time, self.is_paused)
+        system_paused_game(self.ecs_world, self.interface_cfg, delta_time, self.is_paused, self._player_tag)
 
         if not self.is_paused:
             system_player_limits(self.ecs_world, self.screen_rect)

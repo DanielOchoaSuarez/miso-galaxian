@@ -1,162 +1,170 @@
 {
-    "typeA": {
-        "image": "assets/img/invaders_enemy_02.png",
-        "animations": {
-            "normal": {
-                "number_frames": 5,
-                "list": [
-                    {
-                        "name": "IDLE",
-                        "start": 1,
-                        "end": 4,
-                        "framerate": 3
-                    },
-                    {
-                        "name": "MOVE",
-                        "start": 1,
-                        "end": 1,
-                        "framerate": 1
-                    }
-                ]
-            },
-            "reversed": {
-                "number_frames": 5,
-                "list": [
-                    {
-                        "name": "IDLE",
-                        "start": 4,
-                        "end": 1,
-                        "framerate": 3
-                    },
-                    {
-                        "name": "MOVE",
-                        "start": 1,
-                        "end": 1,
-                        "framerate": 1
-                    }
-                ]
-            }
-        },
-        "velocity_chase": 40
+  "typeA": {
+    "image": "assets/img/invaders_enemy_01.png",
+    "score": 30,
+    "chasing_score": 60,
+    "animations": {
+      "normal": {
+        "number_frames": 5,
+        "list": [
+          {
+            "name": "IDLE",
+            "start": 1,
+            "end": 4,
+            "framerate": 3
+          },
+          {
+            "name": "MOVE",
+            "start": 1,
+            "end": 1,
+            "framerate": 1
+          }
+        ]
+      },
+      "reversed": {
+        "number_frames": 5,
+        "list": [
+          {
+            "name": "IDLE",
+            "start": 4,
+            "end": 1,
+            "framerate": 3
+          },
+          {
+            "name": "MOVE",
+            "start": 1,
+            "end": 1,
+            "framerate": 1
+          }
+        ]
+      }
     },
-    "typeB": {
-        "image": "assets/img/invaders_enemy_01.png",
-        "animations": {
-            "normal": {
-                "number_frames": 5,
-                "list": [
-                    {
-                        "name": "IDLE",
-                        "start": 1,
-                        "end": 4,
-                        "framerate": 3
-                    },
-                    {
-                        "name": "MOVE",
-                        "start": 1,
-                        "end": 1,
-                        "framerate": 1
-                    }
-                ]
-            },
-            "reversed": {
-                "number_frames": 5,
-                "list": [
-                    {
-                        "name": "IDLE",
-                        "start": 4,
-                        "end": 1,
-                        "framerate": 3
-                    },
-                    {
-                        "name": "MOVE",
-                        "start": 1,
-                        "end": 1,
-                        "framerate": 1                    
-                    }
-                ]
-            }
-        },
-        "velocity_chase": 45
+    "velocity_chase": 40
+  },
+  "typeB": {
+    "image": "assets/img/invaders_enemy_02.png",
+    "score": 40,
+    "chasing_score": 80,
+    "animations": {
+      "normal": {
+        "number_frames": 5,
+        "list": [
+          {
+            "name": "IDLE",
+            "start": 1,
+            "end": 4,
+            "framerate": 3
+          },
+          {
+            "name": "MOVE",
+            "start": 1,
+            "end": 1,
+            "framerate": 1
+          }
+        ]
+      },
+      "reversed": {
+        "number_frames": 5,
+        "list": [
+          {
+            "name": "IDLE",
+            "start": 4,
+            "end": 1,
+            "framerate": 3
+          },
+          {
+            "name": "MOVE",
+            "start": 1,
+            "end": 1,
+            "framerate": 1
+          }
+        ]
+      }
     },
-    "typeC": {
-        "image": "assets/img/invaders_enemy_03.png",
-        "animations": {
-            "normal": {
-                "number_frames": 5,
-                "list": [
-                    {
-                        "name": "IDLE",
-                        "start": 1,
-                        "end": 4,
-                        "framerate": 3
-                    },
-                    {
-                        "name": "MOVE",
-                        "start": 1,
-                        "end": 1,
-                        "framerate": 1                    
-                    }
-                ]
-            },
-            "reversed": {
-                "number_frames": 5,
-                "list": [
-                    {
-                        "name": "IDLE",
-                        "start": 4,
-                        "end": 1,
-                        "framerate": 3
-                    },
-                    {
-                        "name": "MOVE",
-                        "start": 1,
-                        "end": 1,
-                        "framerate": 1                 
-                    }
-                ]
-            }
-        },
-        "velocity_chase": 55
+    "velocity_chase": 45
+  },
+  "typeC": {
+    "image": "assets/img/invaders_enemy_03.png",
+    "score": 50,
+    "chasing_score": 100,
+    "animations": {
+      "normal": {
+        "number_frames": 5,
+        "list": [
+          {
+            "name": "IDLE",
+            "start": 1,
+            "end": 4,
+            "framerate": 3
+          },
+          {
+            "name": "MOVE",
+            "start": 1,
+            "end": 1,
+            "framerate": 1
+          }
+        ]
+      },
+      "reversed": {
+        "number_frames": 5,
+        "list": [
+          {
+            "name": "IDLE",
+            "start": 4,
+            "end": 1,
+            "framerate": 3
+          },
+          {
+            "name": "MOVE",
+            "start": 1,
+            "end": 1,
+            "framerate": 1
+          }
+        ]
+      }
     },
-    "typeD": {
-        "image": "assets/img/invaders_enemy_04.png",
-        "animations": {
-            "normal": {
-                "number_frames": 1,
-                "list": [
-                    {
-                        "name": "IDLE",
-                        "start": 0,
-                        "end": 0,
-                        "framerate": 1
-                    },
-                    {
-                        "name": "MOVE",
-                        "start": 0,
-                        "end": 0,
-                        "framerate": 1
-                    }
-                ]
-            },
-            "reversed": {
-                "number_frames": 1,
-                "list": [
-                    {
-                        "name": "IDLE",
-                        "start": 0,
-                        "end": 0,
-                        "framerate": 1
-                    },
-                    {
-                        "name": "MOVE",
-                        "start": 0,
-                        "end": 0,
-                        "framerate": 1
-                    }
-                ]
-            }
-        },
-        "velocity_chase": 35
-    }
+    "velocity_chase": 55
+  },
+  "typeD": {
+    "image": "assets/img/invaders_enemy_04.png",
+    "score": 60,
+    "chasing_score": 800,
+    "animations": {
+      "normal": {
+        "number_frames": 1,
+        "list": [
+          {
+            "name": "IDLE",
+            "start": 0,
+            "end": 0,
+            "framerate": 1
+          },
+          {
+            "name": "MOVE",
+            "start": 0,
+            "end": 0,
+            "framerate": 1
+          }
+        ]
+      },
+      "reversed": {
+        "number_frames": 1,
+        "list": [
+          {
+            "name": "IDLE",
+            "start": 0,
+            "end": 0,
+            "framerate": 1
+          },
+          {
+            "name": "MOVE",
+            "start": 0,
+            "end": 0,
+            "framerate": 1
+          }
+        ]
+      }
+    },
+    "velocity_chase": 35
+  }
 }

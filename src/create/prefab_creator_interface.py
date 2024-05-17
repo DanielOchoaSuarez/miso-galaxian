@@ -4,6 +4,7 @@ import esper
 
 
 from src.create.prefab_creator import create_sprite
+from src.ecs.components.c_game_text import CGameText
 from src.ecs.components.c_menu_object import CMenuObject
 from src.ecs.components.c_surface import CSurface
 from src.ecs.components.c_transform import CTransform
@@ -15,6 +16,12 @@ class TextAlignment(Enum):
     LEFT = 0
     RIGHT = 1
     CENTER = 2
+
+
+class TypeText(Enum):
+    NA = 0
+    SCORE = 1
+    HIGH_SCORE = 2
 
 
 def create_text(world: esper.World, font_asset: str, txt: str, size: int,
@@ -91,16 +98,20 @@ def create_menu_text(world: esper.World, window_height: int, interface_cfg: dict
     return entity
 
 
-def create_paused_text(world: esper.World, interface_cfg: dict, alignment: TextAlignment) -> int:
-    paused_text: dict = interface_cfg['paused_text']
+def create_game_text(world: esper.World, interface_cfg: dict, text_dict: str, alignment: TextAlignment, type_text: TypeText, alpha: int = 255, text_str: str = None) -> int:
+    paused_text: dict = interface_cfg[text_dict]
 
     font: str = paused_text['font']
-    text: str = paused_text['text']
     text_size: int = paused_text['size']
     blink = paused_text['blink']
 
+    if text_str is not None:
+        text = text_str
+    else:
+        text: str = paused_text['text']
+
     color_cfg = interface_cfg[paused_text['color']]
-    color = pygame.Color(color_cfg['r'], color_cfg['g'], color_cfg['b'], 0)
+    color = pygame.Color(color_cfg['r'], color_cfg['g'], color_cfg['b'], alpha)
 
     position = pygame.Vector2(
         paused_text['position']['x'],
@@ -109,7 +120,7 @@ def create_paused_text(world: esper.World, interface_cfg: dict, alignment: TextA
     entity = create_text(world, font, text, text_size,
                          color, position, alignment)
 
-    world.add_component(entity, CMenuObject(
-        final_pos=position, blink=blink, alignment=alignment.value))
+    world.add_component(entity, CGameText(
+        pos=position, alignment=alignment.value, blink=blink, type_text=type_text.value))
 
     return entity
