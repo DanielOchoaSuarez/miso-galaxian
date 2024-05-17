@@ -89,3 +89,27 @@ def create_menu_text(world: esper.World, window_height: int, interface_cfg: dict
         final_pos=final_pos, blink=blink, alignment=alignment.value))
 
     return entity
+
+
+def create_paused_text(world: esper.World, interface_cfg: dict, alignment: TextAlignment) -> int:
+    paused_text: dict = interface_cfg['paused_text']
+
+    font: str = paused_text['font']
+    text: str = paused_text['text']
+    text_size: int = paused_text['size']
+    blink = paused_text['blink']
+
+    color_cfg = interface_cfg[paused_text['color']]
+    color = pygame.Color(color_cfg['r'], color_cfg['g'], color_cfg['b'], 0)
+
+    position = pygame.Vector2(
+        paused_text['position']['x'],
+        paused_text['position']['y'])
+
+    entity = create_text(world, font, text, text_size,
+                         color, position, alignment)
+
+    world.add_component(entity, CMenuObject(
+        final_pos=position, blink=blink, alignment=alignment.value))
+
+    return entity
