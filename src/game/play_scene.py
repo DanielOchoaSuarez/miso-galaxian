@@ -84,6 +84,8 @@ class PlayScene(Scene):
             if action.phase == CommandPhase.START:
                 bullet_entity = self.ecs_world.get_components(CTagBullet)
                 if len(bullet_entity) == 0:
+                    if not self.ecs_world.entity_exists(self.player_entity):
+                        return
                     bullet_entity = create_player_bullet(
                         self.ecs_world, self.player_entity, self.player)
                     bullet_entity_c_v = self.ecs_world.component_for_entity(
