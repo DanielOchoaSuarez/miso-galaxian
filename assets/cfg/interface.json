@@ -56,7 +56,7 @@
     "blink": false,
     "position": {
       "x": 66,
-      "y": 32
+      "y": 30
     }
   },
   "label_high_score_text": {
@@ -78,7 +78,7 @@
     "blink": false,
     "position": {
       "x": 148,
-      "y": 32
+      "y": 30
     }
   },
   "paused_text": {

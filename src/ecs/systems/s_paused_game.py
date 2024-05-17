@@ -16,8 +16,6 @@ def system_paused_game(world: esper.World, interface_cfg: dict, delta_time: floa
     c_g: CGameText
     for entity, (c_s, c_t, c_g) in components:
 
-        print(f'update {player_tag.update_score} - type {c_g.type_text}')
-
         if player_tag.update_score and c_g.type_text == TypeText.SCORE.value:
             player_tag.update_score = False
             world.delete_entity(entity)

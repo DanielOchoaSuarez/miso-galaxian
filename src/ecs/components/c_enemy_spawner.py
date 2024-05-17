@@ -16,7 +16,7 @@ class CEnemySpawner:
         self.enemy_size_x:int = 12
         self.enemy_size_y:int = 8
         self.enemy_group_x_pos = self.get_topleft()
-        enemy_group_y_pos = 30
+        enemy_group_y_pos = 50
         no_enemmies_spots = [0,1,2,4,5,7,8,9,10,11,18,19,20,29]
         enemy_type_d = [3,6]
         enemy_type_c = [12,13,14,15,16,17]
