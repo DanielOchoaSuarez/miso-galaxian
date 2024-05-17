@@ -1,4 +1,5 @@
 {
   "prueba": "Nivel 1",
-  "player_bullet_speed": 200
+  "player_bullet_speed": 200,
+  "enemy_launch": "assets/snd/enemy_launch.ogg"
 }

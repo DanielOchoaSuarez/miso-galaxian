@@ -6,15 +6,15 @@
                 "number_frames": 5,
                 "list": [
                     {
-                        "name": "MOVE",
+                        "name": "IDLE",
                         "start": 1,
                         "end": 4,
-                        "framerate": 5
+                        "framerate": 3
                     },
                     {
-                        "name": "IDLE",
-                        "start": 0,
-                        "end": 0,
+                        "name": "MOVE",
+                        "start": 1,
+                        "end": 1,
                         "framerate": 1
                     }
                 ]
@@ -23,21 +23,21 @@
                 "number_frames": 5,
                 "list": [
                     {
-                        "name": "MOVE",
+                        "name": "IDLE",
                         "start": 4,
                         "end": 1,
-                        "framerate": 5
+                        "framerate": 3
                     },
                     {
-                        "name": "IDLE",
-                        "start": 0,
-                        "end": 0,
+                        "name": "MOVE",
+                        "start": 1,
+                        "end": 1,
                         "framerate": 1
                     }
                 ]
             }
         },
-        "velocity_chase": 75
+        "velocity_chase": 40
     },
     "typeB": {
         "image": "assets/img/invaders_enemy_01.png",
@@ -46,15 +46,15 @@
                 "number_frames": 5,
                 "list": [
                     {
-                        "name": "MOVE",
+                        "name": "IDLE",
                         "start": 1,
                         "end": 4,
-                        "framerate": 5
+                        "framerate": 3
                     },
                     {
-                        "name": "IDLE",
-                        "start": 0,
-                        "end": 0,
+                        "name": "MOVE",
+                        "start": 1,
+                        "end": 1,
                         "framerate": 1
                     }
                 ]
@@ -63,21 +63,21 @@
                 "number_frames": 5,
                 "list": [
                     {
-                        "name": "MOVE",
+                        "name": "IDLE",
                         "start": 4,
                         "end": 1,
-                        "framerate": 5                    
+                        "framerate": 3
                     },
                     {
-                        "name": "IDLE",
-                        "start": 0,
-                        "end": 0,
-                        "framerate": 1
+                        "name": "MOVE",
+                        "start": 1,
+                        "end": 1,
+                        "framerate": 1                    
                     }
                 ]
             }
         },
-        "velocity_chase": 75
+        "velocity_chase": 45
     },
     "typeC": {
         "image": "assets/img/invaders_enemy_03.png",
@@ -86,16 +86,16 @@
                 "number_frames": 5,
                 "list": [
                     {
-                        "name": "MOVE",
+                        "name": "IDLE",
                         "start": 1,
                         "end": 4,
-                        "framerate": 5                    
+                        "framerate": 3
                     },
                     {
-                        "name": "IDLE",
-                        "start": 0,
-                        "end": 0,
-                        "framerate": 1
+                        "name": "MOVE",
+                        "start": 1,
+                        "end": 1,
+                        "framerate": 1                    
                     }
                 ]
             },
@@ -103,21 +103,21 @@
                 "number_frames": 5,
                 "list": [
                     {
-                        "name": "MOVE",
+                        "name": "IDLE",
                         "start": 4,
                         "end": 1,
-                        "framerate": 5                    
+                        "framerate": 3
                     },
                     {
-                        "name": "IDLE",
-                        "start": 0,
-                        "end": 0,
-                        "framerate": 1
+                        "name": "MOVE",
+                        "start": 1,
+                        "end": 1,
+                        "framerate": 1                 
                     }
                 ]
             }
         },
-        "velocity_chase": 5
+        "velocity_chase": 55
     },
     "typeD": {
         "image": "assets/img/invaders_enemy_04.png",
@@ -130,6 +130,12 @@
                         "start": 0,
                         "end": 0,
                         "framerate": 1
+                    },
+                    {
+                        "name": "MOVE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
                     }
                 ]
             },
@@ -141,10 +147,16 @@
                         "start": 0,
                         "end": 0,
                         "framerate": 1
+                    },
+                    {
+                        "name": "MOVE",
+                        "start": 0,
+                        "end": 0,
+                        "framerate": 1
                     }
                 ]
             }
         },
-        "velocity_chase": 75
+        "velocity_chase": 35
     }
 }
