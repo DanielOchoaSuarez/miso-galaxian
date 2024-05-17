@@ -9,6 +9,7 @@ class CEnemyState():
         self.vel_chase = chase
         self.allow_shoot_time = 1.5
         self.allow_shoot_time_counter = 0
+        self.sound_played = False
 
 class EnemyState(Enum):
     IDLE = 0

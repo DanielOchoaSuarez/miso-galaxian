@@ -17,18 +17,23 @@ def system_enemy_state(world:esper.World, screen:pygame.Rect, player_entity:int,
         player_v = world.component_for_entity(player_entity, CVelocity)
 
     components = world.get_components(CVelocity, CTransform, CSurface, CAnimation ,CEnemyState)
+
     c_v:CVelocity
     c_p:CTransform
     c_s:CSurface
     c_a:CAnimation
-
+    c_es:CEnemyState
     for _, (c_v, c_p, c_s, c_a, c_es) in components:
 
         if c_es.state == EnemyState.MOVE:
             _do_move_state(c_v, c_p, c_a, c_es)
+
         elif c_es.state == EnemyState.CHASING:
-            ServiceLocator.sounds_service.play(level_cfg['enemy_launch'])
+            if c_es.sound_played == False:
+                c_es.sound_played = True
+                ServiceLocator.sounds_service.play(level_cfg['enemy_launch'])
             _do_chase_state(c_v, c_p, c_a, c_es, screen.height, player_p, player_v, delta_time)
+
         elif c_es.state == EnemyState.LANDING:
             _do_landing_state(c_v, c_p, c_s, c_a, c_es)
 
