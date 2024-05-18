@@ -3,18 +3,20 @@ import pygame
 class CEnemySpawner:
     def __init__(self, screen:pygame.Rect) -> None:
         self.enemy_rows:int = 6
+        self.enemy_start_chase:float = 3.0
+        self.enemy_start_chase_counter:float = 0.0
         self.enemy_tiles:int = 10 # must be even
         self.enemy_list:list = []
         self.screen_width:int = screen.width
         self.reverse_limit:int = 20
         self.should_reverse:bool = False
-        self.l_r_velocity:pygame.Vector2 = pygame.Vector2(-10, 0)
-        self.r_l_velocity:pygame.Vector2 = pygame.Vector2(10, 0)
-        self.enemy_separation:int = 3
+        self.l_r_velocity:pygame.Vector2 = pygame.Vector2(10, 0)
+        self.r_l_velocity:pygame.Vector2 = pygame.Vector2(-10, 0)
+        self.enemy_separation:int = 4
         self.enemy_size_x:int = 12
         self.enemy_size_y:int = 8
         self.enemy_group_x_pos = self.get_topleft()
-        enemy_group_y_pos = 30
+        enemy_group_y_pos = 50
         no_enemmies_spots = [0,1,2,4,5,7,8,9,10,11,18,19,20,29]
         enemy_type_d = [3,6]
         enemy_type_c = [12,13,14,15,16,17]
@@ -57,10 +59,8 @@ class CEnemySpawner:
 class EnemyData:
     def __init__(self, pos_x, pos_y, init_vel, reversed_anim, enemy_type) -> None:
         self.is_spawned:bool = False
-        self.is_chasing:bool = False
         self.entity_id:int = 0
         self.enemy_type:str = enemy_type
         self.reversed_anim:bool = reversed_anim
         self.on_idle_vel = init_vel
         self.init_pos:pygame.Vector2 = pygame.Vector2(pos_x, pos_y)
-        self.temp_pos:pygame.Vector2 = pygame.Vector2(pos_x, pos_y)

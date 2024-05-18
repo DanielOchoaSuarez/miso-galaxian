@@ -56,7 +56,7 @@
     "blink": false,
     "position": {
       "x": 66,
-      "y": 32
+      "y": 30
     }
   },
   "label_high_score_text": {
@@ -78,7 +78,25 @@
     "blink": false,
     "position": {
       "x": 148,
-      "y": 32
+      "y": 30
+    }
+  },
+  "paused_text": {
+    "font": "assets/fnt/PressStart2P.ttf",
+    "text": "PAUSED",
+    "size": 8,
+    "color": "title_text_color",
+    "blink": true,
+    "position": {
+      "x": 128,
+      "y": 164
+    }
+  },
+  "lives_img": {
+    "image": "assets/img/invaders_life.png",
+    "position": {
+      "x": 162,
+      "y": 31
     }
   }
 }

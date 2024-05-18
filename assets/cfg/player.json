@@ -1,21 +1,5 @@
 {
     "image": "assets/img/invaders_char.png",
-    "animations": {
-        "number_frames": 4,
-        "list": [
-            {
-                "name": "MOVE",
-                "start": 0,
-                "end": 3,
-                "framerate": 10
-            },
-            {
-                "name": "IDLE",
-                "start": 0,
-                "end": 0,
-                "framerate": 1
-            }
-        ]
-    },
+    "sound": "assets/snd/player_shoot.ogg",
     "input_velocity": 150
 }
