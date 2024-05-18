@@ -5,10 +5,12 @@ import esper
 
 from src.create.prefab_creator import create_sprite
 from src.ecs.components.c_game_text import CGameText
+from src.ecs.components.c_lives_counter import CLives
 from src.ecs.components.c_menu_object import CMenuObject
 from src.ecs.components.c_surface import CSurface
 from src.ecs.components.c_transform import CTransform
 from src.ecs.components.c_velocity import CVelocity
+from src.ecs.components.tags.c_tag_live import CTagLive
 from src.engine.service_locator import ServiceLocator
 
 
@@ -124,3 +126,30 @@ def create_game_text(world: esper.World, interface_cfg: dict, text_dict: str, al
         pos=position, alignment=alignment.value, blink=blink, type_text=type_text.value))
 
     return entity
+
+
+def create_lives(world: esper.World):
+    lives_entity = world.create_entity()
+    world.add_component(lives_entity, CLives(counter=3))
+    return lives_entity
+
+
+def create_img_lives(world: esper.World, interface_cfg: dict, lives_entity: int) -> int:
+    lives_info: dict = interface_cfg['lives_img']
+    img_sprite = ServiceLocator.images_service.get(lives_info['image'])
+    img_size = img_sprite.get_size()
+
+    init_pos = pygame.Vector2(
+        lives_info['position']['x'],
+        (lives_info['position']['y']))
+
+    vel = pygame.Vector2(0, 0)
+
+    lives = world.component_for_entity(lives_entity, CLives)
+
+    for i in range(lives.counter):
+        pos = pygame.Vector2(init_pos.x + (i * img_size[0]), init_pos.y)
+        logo_entity = create_sprite(world, pos, vel, img_sprite)
+        world.add_component(logo_entity, CTagLive())
+
+    return logo_entity

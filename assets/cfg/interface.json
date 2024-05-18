@@ -91,5 +91,12 @@
       "x": 128,
       "y": 164
     }
+  },
+  "lives_img": {
+    "image": "assets/img/invaders_life.png",
+    "position": {
+      "x": 162,
+      "y": 31
+    }
   }
 }

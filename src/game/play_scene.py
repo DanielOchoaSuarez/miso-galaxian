@@ -2,7 +2,7 @@ import src
 
 from src.create.background_creator import create_stars_spawner
 from src.create.enemy_player_creator import create_enemy_spawner, create_game, create_input_player, create_player, create_player_bullet
-from src.create.prefab_creator_interface import TextAlignment, TypeText, create_game_text
+from src.create.prefab_creator_interface import TextAlignment, TypeText, create_game_text, create_img_lives, create_lives
 from src.ecs.components.c_input_command import CInputCommand, CommandPhase
 from src.ecs.components.c_velocity import CVelocity
 from src.ecs.components.tags.c_tag_bullet import CTagBullet
@@ -17,8 +17,9 @@ from src.ecs.systems.s_enemy_idle_movement import system_enemy_idle_movement
 from src.ecs.systems.s_enemy_spawner import system_enemy_spawner
 from src.ecs.systems.s_enemy_state import system_enemy_state
 from src.ecs.systems.s_explosion_state import system_explosion_state
+from src.ecs.systems.s_lives import system_lives
 from src.ecs.systems.s_movement import system_movement
-from src.ecs.systems.s_paused_game import system_paused_game
+from src.ecs.systems.system_game_interface import system_game_interface
 from src.ecs.systems.s_player_limits import system_player_limits
 from src.ecs.systems.s_respawn_player import system_respawn_player
 from src.ecs.systems.s_stars_spawner import system_stars_spawner
@@ -42,9 +43,11 @@ class PlayScene(Scene):
         self._player_cv = None
         self.spawn_player_wait = 2
         self.spawn_counter = 0
+        self._lives_entity = None
 
     def do_create(self):
         create_game(self.ecs_world)
+        self._lives_entity = create_lives(self.ecs_world)
         create_stars_spawner(self.ecs_world, self.screen_rect, self.starfield_cfg)
         self.spawn_player()
         create_input_player(self.ecs_world)
@@ -64,12 +67,16 @@ class PlayScene(Scene):
             self.ecs_world, self.interface_cfg, 'label_high_score_text', TextAlignment.CENTER, TypeText.NA)
         create_game_text(
             self.ecs_world, self.interface_cfg, 'high_score_text', TextAlignment.RIGHT, TypeText.HIGH_SCORE)
+        
+        # Lives
+        create_img_lives(self.ecs_world, self.interface_cfg, self._lives_entity)
 
     def do_update(self, delta_time: float):
         system_stars_spawner(self.ecs_world, delta_time,
                             self.screen_rect.height)
         system_movement(self.ecs_world, delta_time, self.is_paused)
-        system_paused_game(self.ecs_world, self.interface_cfg, delta_time, self.is_paused, self._player_tag)
+        system_game_interface(self.ecs_world, self.interface_cfg, delta_time, self.is_paused, self._player_tag)
+        system_lives(self.ecs_world, self.interface_cfg, self._lives_entity)
 
         if not self.is_paused:
             system_player_limits(self.ecs_world, self.screen_rect)
@@ -80,8 +87,8 @@ class PlayScene(Scene):
             system_enemy_idle_movement(self.ecs_world, self.screen_rect, delta_time)
             system_enemy_chasing(self.ecs_world, delta_time, self.player_entity, self.screen_rect)
             system_collision_bullet_enemy(self.ecs_world, self.explosion_cfg['enemy'], self._player_tag)
-            system_collision_bullet_enemy_player(self.ecs_world, self.explosion_cfg['player'])
-            system_collision_enemy_player(self.ecs_world, self.explosion_cfg['player'])
+            system_collision_bullet_enemy_player(self.ecs_world, self.explosion_cfg['player'], self._lives_entity)
+            system_collision_enemy_player(self.ecs_world, self.explosion_cfg['player'], self._lives_entity)
             system_explosion_state(self.ecs_world)
             system_animation(self.ecs_world, delta_time)
             system_respawn_player(self.ecs_world, self.player_entity, delta_time, self.spawn_player)

@@ -8,7 +8,7 @@ from src.ecs.components.c_transform import CTransform
 from src.ecs.components.tags.c_tag_player import CTagPlayer
 
 
-def system_paused_game(world: esper.World, interface_cfg: dict, delta_time: float, is_paused: bool, player_tag: CTagPlayer):
+def system_game_interface(world: esper.World, interface_cfg: dict, delta_time: float, is_paused: bool, player_tag: CTagPlayer):
     components = world.get_components(CSurface, CTransform, CGameText)
 
     c_s: CSurface
