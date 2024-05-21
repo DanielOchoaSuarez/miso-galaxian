@@ -26,6 +26,7 @@ class GameEngine:
         self._scenes: dict[str, Scene] = {}
         self._scenes['MENU_SCENE'] = MenuScene(self)
         self._scenes["LEVEL_01"] = PlayScene("level_01.json", self)
+        self._scenes["LEVEL_02"] = PlayScene("level_01.json", self)
         self._current_scene: Scene = None
         self._scene_name_to_switch: str = None
 

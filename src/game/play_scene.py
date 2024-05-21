@@ -1,11 +1,18 @@
+import pygame
 import src
 
 from src.create.background_creator import create_stars_spawner
 from src.create.enemy_player_creator import create_enemy_spawner, create_game, create_input_player, create_player, create_player_bullet
-from src.create.prefab_creator_interface import TextAlignment, TypeText, create_endgame_text, create_game_text, create_img_lives, create_lives
+from src.create.prefab_creator_interface import TextAlignment, TypeText, create_endgame_text, create_game_text, create_img_lives, create_level_text, create_lives
+from src.ecs.components.c_endgame import CEndGameText
+from src.ecs.components.c_enemy_spawner import CEnemySpawner
 from src.ecs.components.c_input_command import CInputCommand, CommandPhase
+from src.ecs.components.c_menu_object import CMenuObject
+from src.ecs.components.c_surface import CSurface
+from src.ecs.components.c_transform import CTransform
 from src.ecs.components.c_velocity import CVelocity
 from src.ecs.components.tags.c_tag_bullet import CTagBullet
+from src.ecs.components.tags.c_tag_enemy import CTagEnemy
 from src.ecs.components.tags.c_tag_player import CTagPlayer
 from src.ecs.systems.s_animations import system_animation
 from src.ecs.systems.s_bullet_limits import system_bullet_limits
@@ -44,6 +51,7 @@ class PlayScene(Scene):
         self.spawn_player_wait = 2
         self.spawn_counter = 0
         self._lives_entity = None
+        self._leveltimecounter = 0
 
     def do_create(self):
         create_game(self.ecs_world)
@@ -92,6 +100,29 @@ class PlayScene(Scene):
             system_explosion_state(self.ecs_world)
             system_animation(self.ecs_world, delta_time)
             system_respawn_player(self.ecs_world, self.player_entity, delta_time, self.spawn_player)
+
+        
+        #se optiene el numero de componentes
+        componentEnemy = len(self.ecs_world.get_component(CTagEnemy))
+        
+        componentObject = self.ecs_world.get_components(CSurface, CTransform, CVelocity)
+
+
+        if(componentEnemy == 0):
+            create_level_text(self.ecs_world, self.interface_cfg, 'level_complete_text', TextAlignment.CENTER, TypeText.NEXT_LEVEL)
+            create_level_text(self.ecs_world, self.interface_cfg, 'next_level_text', TextAlignment.CENTER, TypeText.NEXT_LEVEL)
+
+            componentLevelText = self.ecs_world.get_components(CSurface, CTransform, CEndGameText)
+
+            for _, (o_s, o_t, o_v) in componentObject:
+                for _, (c_s, c_t, c_g) in componentLevelText:
+                    self._leveltimecounter += delta_time
+                    if self._leveltimecounter > 1.6:
+                        #c_s.surf.set_alpha(0)
+                        continue
+
+            self.switch_scene("LEVEL_02")
+
 
     def do_action(self, action: CInputCommand):
         velocity = self.player['input_velocity']
