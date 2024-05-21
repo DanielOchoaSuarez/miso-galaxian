@@ -2,7 +2,7 @@ import src
 
 from src.create.background_creator import create_stars_spawner
 from src.create.enemy_player_creator import create_enemy_spawner, create_game, create_input_player, create_player, create_player_bullet
-from src.create.prefab_creator_interface import TextAlignment, TypeText, create_game_text, create_img_lives, create_lives
+from src.create.prefab_creator_interface import TextAlignment, TypeText, create_endgame_text, create_game_text, create_img_lives, create_lives
 from src.ecs.components.c_input_command import CInputCommand, CommandPhase
 from src.ecs.components.c_velocity import CVelocity
 from src.ecs.components.tags.c_tag_bullet import CTagBullet

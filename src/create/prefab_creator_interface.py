@@ -4,6 +4,7 @@ import esper
 
 
 from src.create.prefab_creator import create_sprite
+from src.ecs.components.c_endgame import CEndGameText
 from src.ecs.components.c_game_text import CGameText
 from src.ecs.components.c_lives_counter import CLives
 from src.ecs.components.c_menu_object import CMenuObject
@@ -24,6 +25,7 @@ class TypeText(Enum):
     NA = 0
     SCORE = 1
     HIGH_SCORE = 2
+    END_GAME = 3
 
 
 def create_text(world: esper.World, font_asset: str, txt: str, size: int,
@@ -126,6 +128,34 @@ def create_game_text(world: esper.World, interface_cfg: dict, text_dict: str, al
         pos=position, alignment=alignment.value, blink=blink, type_text=type_text.value))
 
     return entity
+
+def create_endgame_text(world: esper.World, interface_cfg: dict, text_dict: str, alignment: TextAlignment, type_text: TypeText, alpha: int = 255, text_str: str = None) -> int:
+    endgame_text: dict = interface_cfg[text_dict]
+
+    font: str = endgame_text['font']
+    text_size: int = endgame_text['size']
+    blink = endgame_text['blink']
+
+    if text_str is not None:
+        text = text_str
+    else:
+        text: str = endgame_text['text']
+
+    color_cfg = interface_cfg[endgame_text['color']]
+    color = pygame.Color(color_cfg['r'], color_cfg['g'], color_cfg['b'], alpha)
+
+    position = pygame.Vector2(
+        endgame_text['position']['x'],
+        endgame_text['position']['y'])
+
+    entity = create_text(world, font, text, text_size,
+                         color, position, alignment)
+
+    world.add_component(entity, CEndGameText(
+        pos=position, alignment=alignment.value, blink=blink, type_text=type_text.value))
+
+    return entity
+
 
 
 def create_lives(world: esper.World):
