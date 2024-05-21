@@ -118,10 +118,11 @@ class PlayScene(Scene):
                 for _, (c_s, c_t, c_g) in componentLevelText:
                     self._leveltimecounter += delta_time
                     if self._leveltimecounter > 1.6:
-                        #c_s.surf.set_alpha(0)
+                        c_s.surf.set_alpha(0)
+                        create_enemy_spawner(self.ecs_world, self.screen_rect)
                         continue
-
-            self.switch_scene("LEVEL_02")
+            
+            #self.switch_scene("LEVEL_02")
 
 
     def do_action(self, action: CInputCommand):
