@@ -98,15 +98,15 @@ class PlayScene(Scene):
 
         if action.name == "PLAYER_LEFT":
             if action.phase == CommandPhase.START:
-                self._player_cv.vel.x -= velocity
+                self._player_cv.vel.x = -velocity
             elif action.phase == CommandPhase.END:
-                self._player_cv.vel.x += velocity
+                self._player_cv.vel.x = 0
 
         if action.name == "PLAYER_RIGHT":
             if action.phase == CommandPhase.START:
-                self._player_cv.vel.x += velocity
+                self._player_cv.vel.x = velocity
             elif action.phase == CommandPhase.END:
-                self._player_cv.vel.x -= velocity
+                self._player_cv.vel.x = 0
 
         if action.name == "PLAYER_FIRE":
             if action.phase == CommandPhase.START:
