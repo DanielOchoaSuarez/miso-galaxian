@@ -22,6 +22,13 @@ def system_game_interface(world: esper.World, interface_cfg: dict, delta_time: f
             create_game_text(world, interface_cfg, 'player_score_text',
                              TextAlignment.RIGHT, TypeText.SCORE, 255, str(player_tag.score))
 
+        high_score: int = int(interface_cfg['high_score_text'].get('text'))
+        if c_g.type_text == TypeText.HIGH_SCORE.value and high_score < player_tag.score:
+            interface_cfg['high_score_text']['text'] = str(player_tag.score)
+            world.delete_entity(entity)
+            create_game_text(world, interface_cfg, 'high_score_text',
+                             TextAlignment.RIGHT, TypeText.HIGH_SCORE, 255, str(player_tag.score))
+
         if c_g.blink:
             if not is_paused:
                 c_s.surf.set_alpha(0)

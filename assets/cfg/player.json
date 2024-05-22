@@ -1,5 +1,5 @@
 {
     "image": "assets/img/invaders_char.png",
     "sound": "assets/snd/player_shoot.ogg",
-    "input_velocity": 150
+    "input_velocity": 140
 }
