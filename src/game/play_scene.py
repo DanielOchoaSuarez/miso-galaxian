@@ -53,6 +53,7 @@ class PlayScene(Scene):
         self.spawn_counter = 0
         self._lives_entity = None
         self._leveltimecounter = 0
+        self._endsound = False
 
     def do_create(self):
         self._c_game_entity = create_game(self.ecs_world)
@@ -85,7 +86,11 @@ class PlayScene(Scene):
                             self.screen_rect.height)
         system_movement(self.ecs_world, delta_time, self.is_paused)
         system_game_interface(self.ecs_world, self.interface_cfg, delta_time, self.is_paused, self._c_game_entity)
-        system_lives(self.ecs_world, self.interface_cfg, self._lives_entity)
+        _lives = system_lives(self.ecs_world, self.interface_cfg, self._lives_entity)
+        if _lives == 0 and not self._endsound:
+            create_endgame_text(self.ecs_world, self.interface_cfg, 'game_over_text', TextAlignment.CENTER, TypeText.END_GAME, 0)
+            ServiceLocator.sounds_service.play(self.interface_cfg['game_end'])
+            self._endsound = True
 
         if not self.is_paused:
             system_player_limits(self.ecs_world, self.screen_rect)

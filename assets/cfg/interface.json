@@ -20,7 +20,7 @@
   },
   "high_score_max_value": 1000,
   "game_start": "assets/snd/game_start.ogg",
-
+  "game_end": "assets/snd/game_over.ogg",
   "logo_title": {
     "image": "assets/img/invaders_logo_title.png",
     "position": {
