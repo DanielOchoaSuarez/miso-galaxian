@@ -10,6 +10,7 @@ from src.ecs.systems.s_movement import system_movement
 from src.ecs.systems.s_stars_spawner import system_stars_spawner
 from src.engine.cfg_loader import interface_cfg, starfield_cfg, window_cfg
 from src.engine.scenes.scene import MenuSceneState, Scene
+from src.engine.service_locator import ServiceLocator
 
 
 class MenuScene(Scene):
@@ -63,4 +64,5 @@ class MenuScene(Scene):
             if self.menu_state == MenuSceneState.LOADING:
                 self.menu_state = MenuSceneState.READY
             else:
+                ServiceLocator.sounds_service.play(self.interface_cfg['game_start'])
                 self.switch_scene("LEVEL_01")
