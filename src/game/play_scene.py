@@ -117,11 +117,14 @@ class PlayScene(Scene):
             for _, (o_s, o_t, o_v) in componentObject:
                 for _, (c_s, c_t, c_g) in componentLevelText:
                     self._leveltimecounter += delta_time
-                    if self._leveltimecounter > 1.6:
+                    if self._leveltimecounter > delta_time:
                         c_s.surf.set_alpha(0)
-                        create_enemy_spawner(self.ecs_world, self.screen_rect)
                         continue
             
+            for enemy in self.ecs_world.get_component(CTagEnemy):
+                self.ecs_world.delete_entity(enemy)
+
+            create_enemy_spawner(self.ecs_world, self.screen_rect)
             #self.switch_scene("LEVEL_02")
 
 
