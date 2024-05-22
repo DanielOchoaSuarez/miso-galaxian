@@ -86,9 +86,10 @@ def create_player_explosion(world:esper.World, pos:pygame.Vector2, explosion_cfg
     world.add_component(explosion_entity, CAnimation(explosion_cfg['animations'], False))
     world.add_component(explosion_entity, CExplosionState())
 
-def create_game(world:esper.World):
+def create_game(world:esper.World) -> int:
     game_entity = world.create_entity()
     world.add_component(game_entity, CGame())
+    return game_entity
 
 def create_input_player(world: esper.World):
     # Izquierda
