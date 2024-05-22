@@ -47,6 +47,7 @@ class PlayScene(Scene):
         self.interface_cfg = interface_cfg()
         self.player_entity = None
         self._player_tag  = None
+        self._c_game_entity  = None
         self._player_cv = None
         self.spawn_player_wait = 2
         self.spawn_counter = 0
@@ -54,7 +55,7 @@ class PlayScene(Scene):
         self._leveltimecounter = 0
 
     def do_create(self):
-        create_game(self.ecs_world)
+        self._c_game_entity = create_game(self.ecs_world)
         self._lives_entity = create_lives(self.ecs_world)
         create_stars_spawner(self.ecs_world, self.screen_rect, self.starfield_cfg)
         self.spawn_player()
@@ -83,7 +84,7 @@ class PlayScene(Scene):
         system_stars_spawner(self.ecs_world, delta_time,
                             self.screen_rect.height)
         system_movement(self.ecs_world, delta_time, self.is_paused)
-        system_game_interface(self.ecs_world, self.interface_cfg, delta_time, self.is_paused, self._player_tag)
+        system_game_interface(self.ecs_world, self.interface_cfg, delta_time, self.is_paused, self._c_game_entity)
         system_lives(self.ecs_world, self.interface_cfg, self._lives_entity)
 
         if not self.is_paused:
@@ -94,7 +95,7 @@ class PlayScene(Scene):
             system_enemy_state(self.ecs_world, self.screen_rect, self.player_entity, delta_time, self.level_cfg)
             system_enemy_idle_movement(self.ecs_world, self.screen_rect, delta_time)
             system_enemy_chasing(self.ecs_world, delta_time, self.player_entity, self.screen_rect)
-            system_collision_bullet_enemy(self.ecs_world, self.explosion_cfg['enemy'], self._player_tag)
+            system_collision_bullet_enemy(self.ecs_world, self.explosion_cfg['enemy'], self._c_game_entity)
             system_collision_bullet_enemy_player(self.ecs_world, self.explosion_cfg['player'], self._lives_entity)
             system_collision_enemy_player(self.ecs_world, self.explosion_cfg['player'], self._lives_entity)
             system_explosion_state(self.ecs_world)
